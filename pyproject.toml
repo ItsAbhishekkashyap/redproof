@@ -8,10 +8,11 @@ version = "0.1.0"
 description = "Check whether an agent's new tests actually catch the bug it fixed."
 requires-python = ">=3.10"
 authors = [{ name = "Abhishek Gond" }]
-dependencies = ["pytest>=7", "jinja2>=3", "rich>=13"]
+dependencies = ["pytest>=7", "jinja2>=3", "rich>=13", "mcp>=1.2"]
 
 [project.scripts]
 redproof = "redproof.cli:main"
+redproof-mcp = "redproof.mcp_server:main"
 
 [tool.setuptools.packages.find]
 include = ["redproof*"]
