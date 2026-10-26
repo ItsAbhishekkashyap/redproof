@@ -76,6 +76,18 @@ def test_ignores_deleted_test_files(repo: Path) -> None:
     assert Path("tests/test_deleted.py") not in changed
 
 
+def test_ignores_redproof_output_folder(repo: Path) -> None:
+    _write(
+        repo,
+        ".redproof/test_should_be_ignored.py",
+        "def test_ignored():\n    pass\n",
+    )
+
+    changed = find_changed_tests(repo, "HEAD")
+
+    assert Path(".redproof/test_should_be_ignored.py") not in changed
+
+
 def test_rejects_unknown_base_ref(repo: Path) -> None:
     with pytest.raises(ValueError, match="Unknown git ref: not-a-ref"):
         find_changed_tests(repo, "not-a-ref")

@@ -64,6 +64,9 @@ def find_changed_tests(repo: Path, base: str) -> list[Path]:
     changed: list[Path] = []
     for relative_name in sorted(set(tracked) | set(untracked)):
         relative = Path(relative_name)
+        # Redproof's own reports live here and are never test inputs.
+        if ".redproof" in relative.parts:
+            continue
         if not (repo / relative).is_file():
             continue
         if _is_test_file(relative) or _is_conftest(relative):
