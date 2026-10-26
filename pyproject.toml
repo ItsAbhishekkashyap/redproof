@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "redproof"
+version = "0.1.0"
+description = "Check whether an agent's new tests actually catch the bug it fixed."
+requires-python = ">=3.10"
+authors = [{ name = "Abhishek Gond" }]
+dependencies = ["pytest>=7", "jinja2>=3"]
+
+[project.scripts]
+redproof = "redproof.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["redproof*"]
