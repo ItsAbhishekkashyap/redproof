@@ -46,12 +46,39 @@ class Report:
     counts: dict[str, int]
     message: str | None = None
 
+    def summary(self) -> dict[str, Any]:
+        """Return the shared verdict summary used by the CLI, HTML and MCP."""
+        verified = self.counts.get(REAL, 0)
+        fake = self.counts.get(FAKE, 0)
+        broken = self.counts.get(BROKEN, 0)
+        unverified = self.counts.get(INCONCLUSIVE, 0)
+
+        if broken:
+            result = "BROKEN_TESTS"
+        elif fake:
+            result = "FAKE_TESTS_FOUND"
+        elif unverified:
+            result = "UNVERIFIED"
+        elif verified:
+            result = "PROVEN"
+        else:
+            result = "NOTHING_TO_CHECK"
+
+        return {
+            "verified": verified,
+            "fake": fake,
+            "broken": broken,
+            "unverified": unverified,
+            "result": result,
+        }
+
     def to_dict(self) -> dict[str, Any]:
         return {
             "repo": str(self.repo),
             "base": self.base,
             "message": self.message,
             "counts": self.counts,
+            "summary": self.summary(),
             "results": [asdict(result) for result in self.results],
         }
 
