@@ -1,9 +1,7 @@
 from __future__ import annotations
 
-import importlib.util
 import subprocess
 from pathlib import Path
-from types import ModuleType
 
 import pytest
 
@@ -17,21 +15,6 @@ from redproof.check import (
     classify_test,
 )
 from redproof.runner import TestOutcome
-
-DEMO_SCRIPT = Path(__file__).resolve().parents[1] / "demo" / "make_demo.py"
-
-
-def _load_demo_module() -> ModuleType:
-    spec = importlib.util.spec_from_file_location("make_demo", DEMO_SCRIPT)
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
-
-@pytest.fixture(scope="module")
-def demo() -> ModuleType:
-    return _load_demo_module()
 
 
 def _git(repo: Path, *args: str) -> None:
@@ -172,9 +155,9 @@ def test_reports_when_no_tests_changed(tmp_path: Path) -> None:
 
 
 def test_worktree_is_removed_when_running_tests_fails(
-    tmp_path: Path, demo: ModuleType, monkeypatch: pytest.MonkeyPatch
+    demo_repo: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    repo = demo.make_demo(tmp_path / "demo-repo")
+    repo = demo_repo
     before = _git_output(repo, "worktree", "list", "--porcelain")
 
     def explode(*args, **kwargs):
@@ -191,8 +174,8 @@ def test_worktree_is_removed_when_running_tests_fails(
     assert len(worktrees) == 1
 
 
-def test_demo_repository_verdicts(tmp_path: Path, demo: ModuleType) -> None:
-    repo = demo.make_demo(tmp_path / "demo-repo")
+def test_demo_repository_verdicts(demo_repo: Path) -> None:
+    repo = demo_repo
     status_before = _git_output(repo, "status", "--porcelain")
 
     report = check(repo, base="HEAD")
