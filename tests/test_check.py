@@ -111,6 +111,18 @@ def _make_clean_repo(repo: Path) -> None:
             "proves nothing",
         ),
         (
+            TestOutcome("passed"),
+            TestOutcome("skipped"),
+            INCONCLUSIVE,
+            "Skipped on the new code",
+        ),
+        (
+            TestOutcome("skipped"),
+            TestOutcome("passed"),
+            INCONCLUSIVE,
+            "Skipped on the old code",
+        ),
+        (
             TestOutcome("failed", "AssertionError"),
             TestOutcome("failed", "AssertionError"),
             BROKEN,

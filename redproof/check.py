@@ -66,6 +66,18 @@ def classify_test(
     """Apply the Redproof verdict rules to one test's old and new outcomes."""
     file = _file_from_nodeid(nodeid)
 
+    if new.outcome == "skipped":
+        return TestResult(
+            nodeid=nodeid,
+            file=file,
+            old_outcome=old.outcome,
+            old_error_type=old.error_type,
+            new_outcome=new.outcome,
+            new_error_type=new.error_type,
+            verdict=INCONCLUSIVE,
+            reason="Skipped on the new code, so it proves nothing.",
+        )
+
     if new.outcome != "passed":
         detail = new.error_type or new.outcome
         return TestResult(
@@ -77,6 +89,18 @@ def classify_test(
             new_error_type=new.error_type,
             verdict=BROKEN,
             reason=f"Fails on the new code ({detail}).",
+        )
+
+    if old.outcome == "skipped":
+        return TestResult(
+            nodeid=nodeid,
+            file=file,
+            old_outcome=old.outcome,
+            old_error_type=old.error_type,
+            new_outcome=new.outcome,
+            new_error_type=new.error_type,
+            verdict=INCONCLUSIVE,
+            reason="Skipped on the old code, so it proves nothing about the bug.",
         )
 
     if old.outcome == "passed":
