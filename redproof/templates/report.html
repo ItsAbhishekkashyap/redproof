@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Redproof report</title>
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --text: #1f2328;
+    --muted: #656d76;
+    --border: #d8dee4;
+    --good: #1a7f37;
+    --good-bg: #e8f5ec;
+    --bad: #b42318;
+    --bad-bg: #fdecea;
+    --warn: #9a5b00;
+    --warn-bg: #fff4d6;
+    --muted-bg: #eceff2;
+    --accent: #3b5bdb;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 20px 48px;
+  }
+
+  h1 {
+    font-size: 1.9rem;
+    line-height: 1.2;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-size: 1.15rem;
+    margin: 0 0 14px;
+    letter-spacing: -0.01em;
+  }
+
+  section { margin-top: 32px; }
+
+  .meta {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  .meta code {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 1px 6px;
+    font-size: 0.85rem;
+  }
+
+  .banner {
+    margin-top: 28px;
+    padding: 24px 26px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .banner-title {
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .banner-text {
+    margin: 6px 0 0;
+    font-size: 1rem;
+  }
+
+  .banner-good { background: var(--good-bg); border-color: #b7e1c4; }
+  .banner-good .banner-title { color: var(--good); }
+  .banner-bad { background: var(--bad-bg); border-color: #f5c2bd; }
+  .banner-bad .banner-title { color: var(--bad); }
+  .banner-warn { background: var(--warn-bg); border-color: #f0d99a; }
+  .banner-warn .banner-title { color: var(--warn); }
+  .banner-muted { background: var(--muted-bg); }
+  .banner-muted .banner-title { color: var(--muted); }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+
+  .card-value {
+    font-size: 1.9rem;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .card-label {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  table {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  th {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    background: #fafbfc;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  .test-name {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-size: 0.85rem;
+    word-break: break-word;
+  }
+
+  .reason { color: var(--muted); }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .badge-real { color: var(--good); background: var(--good-bg); }
+  .badge-fake { color: var(--bad); background: var(--bad-bg); }
+  .badge-broken { color: var(--bad); background: var(--bad-bg); }
+  .badge-inconclusive { color: var(--warn); background: var(--warn-bg); }
+
+  .unverified-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  .unverified-list li {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .unverified-list li:last-child { border-bottom: none; }
+
+  .unverified-list strong {
+    display: block;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-size: 0.85rem;
+  }
+
+  .unverified-list span {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .empty {
+    margin: 0;
+    padding: 16px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--muted);
+  }
+
+  footer {
+    margin-top: 40px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  footer p { margin: 0; }
+
+  @media (max-width: 640px) {
+    .container { padding: 28px 14px 36px; }
+    h1 { font-size: 1.55rem; }
+    .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .banner { padding: 20px; }
+    .banner-title { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+<main class="container">
+  <header>
+    <h1>Redproof report</h1>
+    <p class="meta">{{ repo_name }} &middot; base <code>{{ base }}</code> &middot; {{ generated_at }}</p>
+  </header>
+
+  <section class="banner banner-{{ banner.tone }}">
+    <div class="banner-title">{{ banner.title }}</div>
+    <p class="banner-text">{{ banner.text }}</p>
+  </section>
+
+  <section class="cards">
+    <div class="card">
+      <div class="card-value">{{ summary.verified }}</div>
+      <div class="card-label">Verified</div>
+    </div>
+    <div class="card">
+      <div class="card-value">{{ summary.fake }}</div>
+      <div class="card-label">Fake</div>
+    </div>
+    <div class="card">
+      <div class="card-value">{{ summary.broken }}</div>
+      <div class="card-label">Broken</div>
+    </div>
+    <div class="card">
+      <div class="card-value">{{ summary.unverified }}</div>
+      <div class="card-label">Unverified</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Tests</h2>
+    {% if results %}
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Test</th>
+            <th>Old code</th>
+            <th>New code</th>
+            <th>Verdict</th>
+            <th>Reason</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for result in results %}
+          <tr>
+            <td class="test-name">{{ result.name }}</td>
+            <td>{{ result.old }}</td>
+            <td>{{ result.new }}</td>
+            <td><span class="badge badge-{{ result.badge }}">{{ result.verdict }}</span></td>
+            <td class="reason">{{ result.reason }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="empty">{{ empty_message }}</p>
+    {% endif %}
+  </section>
+
+  <section>
+    <h2>What is unverified</h2>
+    {% if unverified %}
+    <ul class="unverified-list">
+      {% for item in unverified %}
+      <li>
+        <strong>{{ item.name }}</strong>
+        <span>{{ item.reason }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="empty">Nothing left unverified.</p>
+    {% endif %}
+  </section>
+
+  {% if rounds %}
+  <section>
+    <h2>Rounds</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Round</th>
+            <th>Verified</th>
+            <th>Fake</th>
+            <th>Broken</th>
+            <th>Unverified</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for round in rounds %}
+          <tr>
+            <td>{{ round.round }}</td>
+            <td>{{ round.verified }}</td>
+            <td>{{ round.fake }}</td>
+            <td>{{ round.broken }}</td>
+            <td>{{ round.unverified }}</td>
+            <td>{{ round.result }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  {% endif %}
+
+  <footer>
+    <p>How Redproof decides: a test is REAL only if it fails with an assertion on the old code and passes on the new code.</p>
+  </footer>
+</main>
+</body>
+</html>
