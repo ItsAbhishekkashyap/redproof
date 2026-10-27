@@ -57,7 +57,8 @@ const TONES: Record<string, string> = {
 
 export function Demo() {
   const reduce = useReducedMotion();
-  const [selected, setSelected] = useState(rounds.length - 1);
+  // Start on the first round so the page tells the story in order: fake, then proven.
+  const [selected, setSelected] = useState(0);
   const round = rounds[selected];
   const proven = round.summary.result === "PROVEN";
 
@@ -71,9 +72,10 @@ export function Demo() {
           An Alan agent fixes its own fake test.
         </h2>
         <p className="mt-5 max-w-[38rem] text-[15px] leading-relaxed text-muted">
-          Three real rounds from the demo shop. The agent wrote a test, Redproof
-          rejected it, and the agent rewrote it until the test would have failed
-          on the buggy code.
+          Three real rounds from the demo shop. The demo starts with the bug
+          fixed and one weak test, the way agents often leave a fix. The Alan
+          agent called Redproof, saw the test rejected, and rewrote it until it
+          would have failed on the buggy code.
         </p>
 
         <div className="mt-9 flex flex-wrap items-center gap-2">

@@ -5,6 +5,7 @@ const LINKS = [
   { href: "#how-it-works", label: "How it works" },
   { href: "#demo", label: "Demo" },
   { href: "#alan", label: "Use with Alan" },
+  { href: "#results", label: "Results" },
 ];
 
 export function Nav() {

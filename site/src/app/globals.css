@@ -20,9 +20,14 @@
     scroll-behavior: smooth;
   }
 
+  /* clip, not hidden: hidden would make these scroll containers and break the sticky nav */
+  html,
+  body {
+    overflow-x: clip;
+  }
+
   body {
     background-color: var(--color-ink);
-    overflow-x: hidden;
   }
 
   ::selection {
