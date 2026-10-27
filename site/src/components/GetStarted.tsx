@@ -16,25 +16,25 @@ const CARDS = [
   },
   {
     label: "MCP",
-    title: "Add a command connector",
+    title: "Add the MCP server",
     value: MCP,
-    note: "Alan: Settings → Plugins → MCP → Add custom connector, Command tab. Fallback: python -m redproof.mcp_server.",
+    note: "Add it as a command (stdio) MCP server in any MCP client: Alan, Claude Code, Cursor and others. Fallback: python -m redproof.mcp_server.",
   },
   {
     label: "Skill",
     title: "Import the skill",
     value: SKILL,
-    note: "Alan → Skills → import from GitHub, using this folder link.",
+    note: "A SKILL.md that tells the agent when to call Redproof. Import it in any agent that supports skills, using this folder link.",
   },
 ];
 
-export function UseWithAlan() {
+export function GetStarted() {
   return (
-    <section id="alan" className="border-t border-line py-20 sm:py-28">
+    <section id="get-started" className="border-t border-line py-20 sm:py-28">
       <div className="section-shell">
         <Reveal>
           <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted">
-            Use with Alan
+            Use with any agent
           </p>
           <h2 className="display mt-6 max-w-[20ch] text-4xl sm:text-6xl">
             Give the agent a way to check itself.

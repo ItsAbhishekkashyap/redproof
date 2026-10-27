@@ -6,7 +6,7 @@ import { Nav } from "@/components/Nav";
 import { Problem } from "@/components/Problem";
 import { Results } from "@/components/Results";
 import { UnderTheHood } from "@/components/UnderTheHood";
-import { UseWithAlan } from "@/components/UseWithAlan";
+import { GetStarted } from "@/components/GetStarted";
 
 export default function Home() {
   return (
@@ -17,7 +17,7 @@ export default function Home() {
         <Problem />
         <HowItWorks />
         <Demo />
-        <UseWithAlan />
+        <GetStarted />
         <UnderTheHood />
         <Results />
       </main>

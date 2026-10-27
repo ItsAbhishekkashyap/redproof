@@ -4,7 +4,7 @@ import { GithubMark } from "@/components/GithubMark";
 const LINKS = [
   { href: "#how-it-works", label: "How it works" },
   { href: "#demo", label: "Demo" },
-  { href: "#alan", label: "Use with Alan" },
+  { href: "#get-started", label: "Get started" },
   { href: "#results", label: "Results" },
 ];
 

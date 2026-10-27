@@ -36,7 +36,7 @@ const FACTS: { icon: LucideIcon; title: string; body: string }[] = [
   {
     icon: Plug,
     title: "Works with any agent",
-    body: "CLI, MCP tool, and an Alan skill. Any agent that can run a command can use it.",
+    body: "A CLI, an MCP tool and a skill file. Alan, Claude Code, Cursor or any agent that can run a command can use it.",
   },
 ];
 

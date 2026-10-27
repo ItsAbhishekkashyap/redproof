@@ -4,7 +4,7 @@ export function Footer() {
   return (
     <footer className="border-t border-line py-10">
       <div className="section-shell flex flex-col gap-5 text-[13px] text-muted sm:flex-row sm:items-center sm:justify-between">
-        <p>Built solo for OpenFire by Alan AI, using Alan.</p>
+        <p>Open source. Works with any coding agent that can run a command or call an MCP tool.</p>
         <div className="flex items-center gap-6">
           <a
             href="https://github.com/ItsAbhishekkashyap/redproof"
