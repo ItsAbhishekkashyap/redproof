@@ -2,7 +2,7 @@
 
 A referee for AI-written tests: proves your tests would actually catch the bug.
 
-[Live example report](https://itsabhishekkashyap.github.io/redproof/example-report.html)
+**Website:** [redproof.vercel.app](https://redproof.vercel.app) · **Live example report:** [itsabhishekkashyap.github.io/redproof/example-report.html](https://itsabhishekkashyap.github.io/redproof/example-report.html)
 
 ![Redproof report](docs/images/report.png)
 
