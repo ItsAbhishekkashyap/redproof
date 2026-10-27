@@ -235,12 +235,12 @@
 <main class="container">
   <header>
     <h1>Redproof report</h1>
-    <p class="meta">redproof-demo &middot; base <code>HEAD</code> &middot; 2026-10-26 19:18 UTC</p>
+    <p class="meta">redproof-demo-shop &middot; base <code>HEAD</code> &middot; 2026-10-27 08:10 UTC</p>
   </header>
 
-  <section class="banner banner-bad">
-    <div class="banner-title">FAKE TESTS FOUND</div>
-    <p class="banner-text">1 test would pass even if the bug was never fixed.</p>
+  <section class="banner banner-good">
+    <div class="banner-title">PROVEN</div>
+    <p class="banner-text">The changed test fails on the old code and passes on the new code, so the fix is covered.</p>
   </section>
 
   <section class="cards">
@@ -249,7 +249,7 @@
       <div class="card-label">Verified</div>
     </div>
     <div class="card">
-      <div class="card-value">1</div>
+      <div class="card-value">0</div>
       <div class="card-label">Fake</div>
     </div>
     <div class="card">
@@ -257,7 +257,7 @@
       <div class="card-label">Broken</div>
     </div>
     <div class="card">
-      <div class="card-value">1</div>
+      <div class="card-value">0</div>
       <div class="card-label">Unverified</div>
     </div>
   </section>
@@ -279,27 +279,11 @@
         <tbody>
           
           <tr>
-            <td class="test-name">test_discount.py::test_discount_at_exactly_100</td>
+            <td class="test-name">test_discount.py::test_discount_threshold_boundary</td>
             <td>fails (AssertionError)</td>
             <td>passes</td>
             <td><span class="badge badge-real">REAL</span></td>
             <td class="reason">Fails on the old code with an assertion and passes on the new code, so it catches the bug.</td>
-          </tr>
-          
-          <tr>
-            <td class="test-name">test_discount.py::test_discount_returns_something</td>
-            <td>passes</td>
-            <td>passes</td>
-            <td><span class="badge badge-fake">FAKE</span></td>
-            <td class="reason">Passes even with the old buggy code, so it cannot catch this bug.</td>
-          </tr>
-          
-          <tr>
-            <td class="test-name">test_format.py::test_format_price</td>
-            <td>error (CollectionError)</td>
-            <td>passes</td>
-            <td><span class="badge badge-inconclusive">INCONCLUSIVE</span></td>
-            <td class="reason">Could not run on the old code (CollectionError), so it proves nothing about the bug.</td>
           </tr>
           
         </tbody>
@@ -311,17 +295,58 @@
   <section>
     <h2>What is unverified</h2>
     
-    <ul class="unverified-list">
-      
-      <li>
-        <strong>test_format.py::test_format_price</strong>
-        <span>Could not run on the old code (CollectionError), so it proves nothing about the bug.</span>
-      </li>
-      
-    </ul>
+    <p class="empty">Nothing left unverified.</p>
     
   </section>
 
+  
+  <section>
+    <h2>Rounds</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Round</th>
+            <th>Verified</th>
+            <th>Fake</th>
+            <th>Broken</th>
+            <th>Unverified</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr>
+            <td>1</td>
+            <td>0</td>
+            <td>1</td>
+            <td>0</td>
+            <td>0</td>
+            <td>FAKE TESTS FOUND</td>
+          </tr>
+          
+          <tr>
+            <td>2</td>
+            <td>1</td>
+            <td>2</td>
+            <td>0</td>
+            <td>0</td>
+            <td>FAKE TESTS FOUND</td>
+          </tr>
+          
+          <tr>
+            <td>3</td>
+            <td>1</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>PROVEN</td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+  </section>
   
 
   <footer>
