@@ -1,12 +1,25 @@
+import { Demo } from "@/components/Demo";
+import { Footer } from "@/components/Footer";
+import { Hero } from "@/components/Hero";
+import { HowItWorks } from "@/components/HowItWorks";
+import { Nav } from "@/components/Nav";
+import { Problem } from "@/components/Problem";
+import { UnderTheHood } from "@/components/UnderTheHood";
+import { UseWithAlan } from "@/components/UseWithAlan";
+
 export default function Home() {
   return (
-    <main className="section-shell py-24">
-      <p className="font-mono text-xs uppercase tracking-[0.25em] text-muted">
-        Redproof
-      </p>
-      <h1 className="display mt-6 text-5xl sm:text-7xl">
-        A referee for AI-written tests.
-      </h1>
-    </main>
+    <>
+      <Nav />
+      <main>
+        <Hero />
+        <Problem />
+        <HowItWorks />
+        <Demo />
+        <UseWithAlan />
+        <UnderTheHood />
+      </main>
+      <Footer />
+    </>
   );
 }
