@@ -10,7 +10,7 @@ A referee for AI-written tests: proves your tests would actually catch the bug.
 
 An AI agent fixes a bug and writes a test. CI is green, the coverage number goes up, and the fix looks done. But the test can pass even when the bug is still there.
 
-The demo shop had a discount bug: orders of exactly 100 should get 10% off, but the code only applied the discount above 100. The agent wrote this test:
+The demo shop had a discount bug: orders of exactly 100 should get 10% off, but the code only applied the discount above 100. A typical weak test for that fix looks like this:
 
 ```python
 def test_discount_returns_something():
@@ -50,7 +50,7 @@ An Alan agent with the Redproof skill and MCP tool worked on the demo shop. The 
 
 > I fixed the discount bug in shop/pricing.py and wrote a test. Verify my tests are real before we finish.
 
-The agent's first test was `assert apply_discount(150) is not None`. Redproof flagged it as FAKE. The agent rewrote it, but the second attempt still had fake tests. On the third round, it left one boundary test that fails on the old code:
+The demo starts the way an agent often leaves a fix: the bug is fixed and there is one weak test, `assert apply_discount(150) is not None` (planted by `demo/make_demo.py --scenario loop`). The Alan agent called Redproof, which flagged that test as FAKE. The agent added a test, but the second round still had fake tests. On the third round, it left one boundary test that fails on the old code:
 
 ```python
 from shop.pricing import apply_discount
