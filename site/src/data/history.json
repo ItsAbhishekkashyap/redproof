@@ -1,0 +1,91 @@
+[
+  {
+    "round": 1,
+    "time": "2026-10-27T08:10:23+00:00",
+    "summary": {
+      "verified": 0,
+      "fake": 1,
+      "broken": 0,
+      "unverified": 0,
+      "result": "FAKE_TESTS_FOUND"
+    },
+    "results": [
+      {
+        "nodeid": "tests/test_discount.py::test_discount_applied",
+        "file": "tests/test_discount.py",
+        "old_outcome": "passed",
+        "old_error_type": null,
+        "new_outcome": "passed",
+        "new_error_type": null,
+        "verdict": "FAKE",
+        "reason": "Passes even with the old buggy code, so it cannot catch this bug."
+      }
+    ]
+  },
+  {
+    "round": 2,
+    "time": "2026-10-27T08:10:36+00:00",
+    "summary": {
+      "verified": 1,
+      "fake": 2,
+      "broken": 0,
+      "unverified": 0,
+      "result": "FAKE_TESTS_FOUND"
+    },
+    "results": [
+      {
+        "nodeid": "tests/test_discount.py::test_discount_above_threshold",
+        "file": "tests/test_discount.py",
+        "old_outcome": "passed",
+        "old_error_type": null,
+        "new_outcome": "passed",
+        "new_error_type": null,
+        "verdict": "FAKE",
+        "reason": "Passes even with the old buggy code, so it cannot catch this bug."
+      },
+      {
+        "nodeid": "tests/test_discount.py::test_discount_at_exact_threshold",
+        "file": "tests/test_discount.py",
+        "old_outcome": "failed",
+        "old_error_type": "AssertionError",
+        "new_outcome": "passed",
+        "new_error_type": null,
+        "verdict": "REAL",
+        "reason": "Fails on the old code with an assertion and passes on the new code, so it catches the bug."
+      },
+      {
+        "nodeid": "tests/test_discount.py::test_no_discount_below_threshold",
+        "file": "tests/test_discount.py",
+        "old_outcome": "passed",
+        "old_error_type": null,
+        "new_outcome": "passed",
+        "new_error_type": null,
+        "verdict": "FAKE",
+        "reason": "Passes even with the old buggy code, so it cannot catch this bug."
+      }
+    ]
+  },
+  {
+    "round": 3,
+    "time": "2026-10-27T08:10:51+00:00",
+    "summary": {
+      "verified": 1,
+      "fake": 0,
+      "broken": 0,
+      "unverified": 0,
+      "result": "PROVEN"
+    },
+    "results": [
+      {
+        "nodeid": "tests/test_discount.py::test_discount_threshold_boundary",
+        "file": "tests/test_discount.py",
+        "old_outcome": "failed",
+        "old_error_type": "AssertionError",
+        "new_outcome": "passed",
+        "new_error_type": null,
+        "verdict": "REAL",
+        "reason": "Fails on the old code with an assertion and passes on the new code, so it catches the bug."
+      }
+    ]
+  }
+]
